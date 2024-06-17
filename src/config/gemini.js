@@ -1,4 +1,4 @@
-const apiKey = "AIzaSyAgGCTv5o5hU0_S_YJ4cknUX4wse4XA_3E"
+/* eslint-disable no-undef */
 
 /*
  * Install the Generative AI SDK
@@ -9,13 +9,16 @@ const apiKey = "AIzaSyAgGCTv5o5hU0_S_YJ4cknUX4wse4XA_3E"
  * https://ai.google.dev/gemini-api/docs/get-started/node
  */
 
-const {
+process.env.REACT_APP_GEMINI_API_KEY= "AIzaSyBKrKMpQxAu2nf5D7Jue1KMqaAy8_K6KHo"
+
+import {
   GoogleGenerativeAI,
   HarmCategory,
   HarmBlockThreshold,
-} = require("@google/generative-ai");
+// eslint-disable-next-line no-undef
+} from "@google/generative-ai";
 
-const apiKey = process.env.GEMINI_API_KEY;
+const apiKey = process.env.REACT_APP_GEMINI_API_KEY
 const genAI = new GoogleGenerativeAI(apiKey);
 
 const model = genAI.getGenerativeModel({
@@ -30,17 +33,33 @@ const generationConfig = {
   responseMimeType: "text/plain",
 };
 
-async function run() {
+const safetySettings = [
+  {
+    category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+    threshold:HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE
+  },
+  {
+    category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+    threshold:HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE
+  },
+  {
+    category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+    threshold: HarmBlockThreshold.BLOCK_ONLY_HIGH
+  }
+]
+
+async function run(prompt) {
   const chatSession = model.startChat({
     generationConfig,
- // safetySettings: Adjust safety settings
- // See https://ai.google.dev/gemini-api/docs/safety-settings
-    history: [
+       safetySettings,
+      history: [
     ],
   });
 
-  const result = await chatSession.sendMessage("INSERT_INPUT_HERE");
-  console.log(result.response.text());
+  const result = await chatSession.sendMessage(prompt);
+  const responseText = await result.response.text();
+  console.log(responseText);
+   return responseText; 
 }
 
-run();
+export default run;
