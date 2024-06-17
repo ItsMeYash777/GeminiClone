@@ -8,6 +8,9 @@ import { Context } from '../../context/Context'
 const Header = () => {
 
   const {Sent, recentPrompt, showResult, loading, resultData, setInput, input} = useContext(Context)
+  const handleCardclick = (text) =>{
+    setInput(text)
+  }
   return (
     <>
       <div className="header">
@@ -17,8 +20,7 @@ const Header = () => {
         </div>
 
         <div className="main">
-          {!showResult 
-          ? 
+          {!showResult ? (
             <>
               <div className="greet">
                 <p>
@@ -27,27 +29,53 @@ const Header = () => {
                 <p>How can I help you?</p>
               </div>
               <div className="cards">
-                <div className="card">
+                <div
+                  onClick={() =>
+                    handleCardclick("Help me, Compare these college majors")
+                  }
+                  className="card"
+                >
                   <p>Help me, Compare these college majors </p>
                   <img src={assets.bulb_icon} alt="" />
                 </div>
-                <div className="card">
+                <div
+                  onClick={() =>
+                    handleCardclick(
+                      "Brainstorm team bonding activities for work retreat"
+                    )
+                  }
+                  className="card"
+                >
                   <p>Brainstorm team bonding activities for work retreat </p>
                   <img src={assets.compass_icon} alt="" />
                 </div>
-                <div className="card">
+                <div
+                  onClick={() =>
+                    handleCardclick(
+                      "Help me, plan a game night with my 5 freinds under 100$"
+                    )
+                  }
+                  className="card"
+                >
                   <p>Help me, plan a game night with my 5 freinds under 100$</p>
                   <img src={assets.code_icon} alt="" />
                 </div>
-                <div className="card">
+                <div
+                  onClick={() =>
+                    handleCardclick(
+                      "Provide me list of questions to prepare for my interview"
+                    )
+                  }
+                  className="card"
+                >
                   <p>
-                    Provide me list of questions to prepare for my interview{" "}
+                    Provide me list of questions to prepare for my interview
                   </p>
                   <img src={assets.message_icon} alt="" />
                 </div>
               </div>
             </>
-          : 
+          ) : (
             <div className="result">
               <div className="result-title">
                 <img src={assets.user_icon} alt="" />
@@ -56,7 +84,7 @@ const Header = () => {
               <div className="result-data">
                 <img src={assets.gemini_icon} alt="" />
                 {loading ? (
-                  <div className="loader">  
+                  <div className="loader">
                     <hr />
                     <hr />
                     <hr />
@@ -66,7 +94,7 @@ const Header = () => {
                 )}
               </div>
             </div>
-          }
+          )}
 
           <div className="main-bottom">
             <div className="search-box">
@@ -79,11 +107,9 @@ const Header = () => {
               <div className="bottom-images">
                 <img src={assets.gallery_icon} alt="" />
                 <img src={assets.mic_icon} alt="" />
-                <img
-                  onClick={() => Sent()}
-                  src={assets.send_icon}
-                  alt=""
-                />
+                {input ? (
+                  <img onClick={() => Sent()} src={assets.send_icon} alt="" />
+                ) : null}
               </div>
             </div>
             <div className="bottom-info">

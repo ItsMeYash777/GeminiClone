@@ -5,7 +5,7 @@ import { Context } from "../../context/Context";
 
 const Sidebar = () => {
   const [extended, setExtended] = useState(false);
-  const { Sent, prevPrompt, setRecentPrompt } = useContext(Context);
+  const { Sent, prevPrompt, setRecentPrompt, newChat } = useContext(Context);
 
   const toggleMenu = () => setExtended(!extended);
 
@@ -20,7 +20,7 @@ const Sidebar = () => {
         <div className="menu">
           <img onClick={toggleMenu} src={assets.menu_icon} alt="" />
         </div>
-        <div className="plus">
+        <div onClick={()=> newChat()} className="plus">
           <img src={assets.plus_icon} alt="" />
           {extended && <p>New Chat</p>}
         </div>
