@@ -9,8 +9,6 @@
  * https://ai.google.dev/gemini-api/docs/get-started/node
  */
 
-process.env.REACT_APP_GEMINI_API_KEY= "AIzaSyBKrKMpQxAu2nf5D7Jue1KMqaAy8_K6KHo"
-
 import {
   GoogleGenerativeAI,
   HarmCategory,
