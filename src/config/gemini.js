@@ -9,8 +9,6 @@
  * https://ai.google.dev/gemini-api/docs/get-started/node
  */
 
-process.env.REACT_APP_GEMINI_API_KEY= "AIzaSyBKrKMpQxAu2nf5D7Jue1KMqaAy8_K6KHo"
-
 import {
   GoogleGenerativeAI,
   HarmCategory,
@@ -18,7 +16,7 @@ import {
 // eslint-disable-next-line no-undef
 } from "@google/generative-ai";
 
-const apiKey = process.env.REACT_APP_GEMINI_API_KEY
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
 const genAI = new GoogleGenerativeAI(apiKey);
 
 const model = genAI.getGenerativeModel({
